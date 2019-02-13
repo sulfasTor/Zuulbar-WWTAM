@@ -41,8 +41,10 @@ public class Room
    * @param east The east east.
    * @param south The south exit.
    * @param west The west exit.
+   * @param up The ceiling exit.
+   * @param down The trap door.
    */
-  public void setExits(Room north, Room east, Room south, Room west) 
+  public void setExits(Room north, Room east, Room south, Room west, Room up, Room down) 
   { 
     if (north != null)
       this.exits.put("north", north);
@@ -55,6 +57,13 @@ public class Room
 
     if (west != null)
       this.exits.put("west", west);
+
+    if (up != null)
+      this.exits.put("up", up);
+    
+    if (down != null)
+      this.exits.put("down", down);
+
   }
 
   /**
@@ -73,7 +82,6 @@ public class Room
     return "You are at " + description + "\n" + getExitString();
   }
 
-  
   /**
    * @return A string containing the available exits
    */

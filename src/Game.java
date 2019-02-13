@@ -43,13 +43,13 @@ public class Game
     outside = new Room("You win");
         
     // initialise room exits
-    levels[0].setExits(levels[1], null, null, null);
+    levels[0].setExits(levels[1], null, null, null, null, null);
     for(int i = 1; i < 15 - 1; i++) {
-      levels[i].setExits(null, null, levels[i-1], null);
-      levels[i].setExits(levels[i+1], null, null, null);
+      levels[i].setExits(null, null, levels[i-1], null, null, null);
+      levels[i].setExits(levels[i+1], null, null, null, null, null);
     }
-    levels[14].setExits(null, outside, null, null);
-    outside.setExits(null, null, levels[14], null);
+    levels[14].setExits(null, outside, null, null, null, null);
+    outside.setExits(null, null, levels[14], null, null, null);
 
     currentRoom = levels[0];  // start game outside
   }
@@ -82,7 +82,7 @@ public class Game
     System.out.println("World of Zuul is a new, incredibly boring adventure game.");
     System.out.println("Type 'help' if you need help.");
     System.out.println();
-    System.out.println(currentRoom.getLongDescription());
+    this.printLocationInfo();
   }
 
   /**
@@ -128,7 +128,15 @@ public class Game
     System.out.println("Your command words are:");
     System.out.println(parser.showAll());
   }
-
+  
+  /**
+   * Prints out information about the current room
+   */
+  private void printLocationInfo()
+  {	
+    System.out.println(currentRoom.getLongDescription());
+  }
+  
   /** 
    * Try to go to one direction. If there is an exit, enter
    * the new room, otherwise print an error message.
