@@ -67,7 +67,7 @@ public class Parser
   /**
    * @return A string of the available commands
    */
-  public String showAll() {
+  public String getCommandList() {
     return commands.showCommands();
   }
 }
