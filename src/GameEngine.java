@@ -15,11 +15,13 @@
  * @version 2006.03.30
  */
 
+import java.util.Stack;
+
 public class GameEngine
 {
   private Parser parser;
   private Room currentRoom;
-  private Room previousRoom;
+  private Stack<Room> visitedRooms;
   private UserInterface gui;
   
   /**
@@ -28,7 +30,6 @@ public class GameEngine
   public GameEngine() 
   {
     createRooms();
-    previousRoom = null;
     parser = new Parser();
   }
 
@@ -61,6 +62,8 @@ public class GameEngine
     outside.setExits(null, null, levels[14], null, null, null);
 
     currentRoom = levels[0];  // start game outside
+    visitedRooms = new Stack<Room>();
+    visitedRooms.push(currentRoom);
   }
 
   /**
@@ -111,6 +114,7 @@ public class GameEngine
       eat();
     else if (commandWord.equals("back"))
       back();
+
     return wantToQuit;
   }
 
@@ -154,7 +158,7 @@ public class GameEngine
     if (nextRoom == null)
       gui.println("There is no door!");
     else {
-      previousRoom = currentRoom;
+      visitedRooms.push(currentRoom);
       currentRoom = nextRoom;
       gui.println(currentRoom.getLongDescription());
       if(currentRoom.getImageName() != null)
@@ -195,14 +199,15 @@ public class GameEngine
 
   /**
    *
-   * Go to previous room
+   * Go to previous room recursevely
    */
   private void back() {
-    if (previousRoom == null) {
-      gui.println("You did not visit another room before.");
+
+    if (visitedRooms.peek() == currentRoom) {
+      gui.println("You didn' visit a room before this.");
       return;
     }
-    currentRoom = previousRoom;
+    currentRoom = visitedRooms.pop();;
     gui.println(currentRoom.getLongDescription());
     if(currentRoom.getImageName() != null)
       gui.showImage(currentRoom.getImageName());

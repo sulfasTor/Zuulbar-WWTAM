@@ -69,5 +69,14 @@ public class Command
     {
         return (secondWord != null);
     }
+
+  /**
+   * @return the command string
+   */
+  public String toString()
+  {
+    return commandWord;
+  }
+  
 }
 
