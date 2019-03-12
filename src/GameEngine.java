@@ -19,6 +19,7 @@ public class GameEngine
 {
   private Parser parser;
   private Room currentRoom;
+  private Room previousRoom;
   private UserInterface gui;
   
   /**
@@ -27,6 +28,7 @@ public class GameEngine
   public GameEngine() 
   {
     createRooms();
+    previousRoom = null;
     parser = new Parser();
   }
 
@@ -107,6 +109,8 @@ public class GameEngine
       look();
     else if (commandWord.equals("eat"))
       eat();
+    else if (commandWord.equals("back"))
+      back();
     return wantToQuit;
   }
 
@@ -150,6 +154,7 @@ public class GameEngine
     if (nextRoom == null)
       gui.println("There is no door!");
     else {
+      previousRoom = currentRoom;
       currentRoom = nextRoom;
       gui.println(currentRoom.getLongDescription());
       if(currentRoom.getImageName() != null)
@@ -186,5 +191,20 @@ public class GameEngine
    */
   private void eat() {
     gui.print("You just ate something from your right pocket");
+  }
+
+  /**
+   *
+   * Go to previous room
+   */
+  private void back() {
+    if (previousRoom == null) {
+      gui.println("You did not visit another room before.");
+      return;
+    }
+    currentRoom = previousRoom;
+    gui.println(currentRoom.getLongDescription());
+    if(currentRoom.getImageName() != null)
+      gui.showImage(currentRoom.getImageName());
   }
 }
