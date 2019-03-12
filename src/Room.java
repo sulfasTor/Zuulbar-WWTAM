@@ -16,6 +16,7 @@
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Iterator;
+import java.lang.StringBuilder;
 
 public class Room 
 {
@@ -87,12 +88,13 @@ public class Room
    */
 
   public String getExitString() {
-    String returnString = "Exits: "; // Chaîne de charactères renvoyée
+    StringBuilder returnString = new StringBuilder("Exits: ");
     Set<String> keys = this.exits.keySet(); // Recupère l'ensemble des clés du Hash [
+    
     for (String exit : keys)           // Ajoute les clés a la chaîne
-      returnString += exit + ' ';
+      returnString.append(exit).append(' ');
 
-    return returnString;
+    return returnString.toString();
   }
 
 
