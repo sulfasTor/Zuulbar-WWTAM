@@ -22,6 +22,7 @@ public class Room
 {
   public String description;
   public HashMap<String, Room> exits;
+  private String imageName;
   
   /**
    * Create a room described "description". Initially, it has
@@ -97,5 +98,20 @@ public class Room
     return returnString.toString();
   }
 
+  /**
+   * Return the room that is reached if we go from this room in direction
+   * "direction". If there is no room in that direction, return null.
+   */
+  public Room getExit(String direction) 
+  {
+    return exits.get(direction);
+  }
 
+  /**
+   * Return a string describing the room's image name
+   */
+  public String getImageName()
+  {
+    return imageName;
+  }
 }
