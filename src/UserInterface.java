@@ -22,7 +22,7 @@ public class UserInterface implements ActionListener
     /**
      * Construct a UserInterface. As a parameter, a Game Engine
      * (an object processing and executing the game commands) is
-     * needed.
+     * needed
      * 
      * @param gameEngine  The GameEngine object implementing the game logic.
      */
@@ -80,9 +80,10 @@ public class UserInterface implements ActionListener
      */
     private void createGUI()
     {
-        myFrame = new JFrame("Zork");
-        entryField = new JTextField(34);
 
+        myFrame = new JFrame("Zork");
+        entryField = new JTextField(20);
+	
         log = new JTextArea();
         log.setEditable(false);
         JScrollPane listScroller = new JScrollPane(log);
@@ -91,11 +92,16 @@ public class UserInterface implements ActionListener
 
         JPanel panel = new JPanel();
         image = new JLabel();
-
-        panel.setLayout(new BorderLayout());
-        panel.add(image, BorderLayout.NORTH);
+	
+	JButton button = new JButton("info");
+	button.setActionCommand("help");
+	button.addActionListener(this);
+	
+	panel.setLayout(new BorderLayout());
+	panel.add(image, BorderLayout.NORTH);
         panel.add(listScroller, BorderLayout.CENTER);
-        panel.add(entryField, BorderLayout.SOUTH);
+	panel.add(entryField, BorderLayout.SOUTH);
+	panel.add(button, BorderLayout.EAST);
 
         myFrame.getContentPane().add(panel, BorderLayout.CENTER);
 
@@ -103,9 +109,9 @@ public class UserInterface implements ActionListener
         myFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {System.exit(0);}
         });
-
+	
         entryField.addActionListener(this);
-
+	
         myFrame.pack();
         myFrame.setVisible(true);
         entryField.requestFocus();
@@ -116,9 +122,13 @@ public class UserInterface implements ActionListener
      */
     public void actionPerformed(ActionEvent e) 
     {
+	if ("help".equals(e.getActionCommand())) {
+	    engine.interpretCommand("help");
+	}
         // no need to check the type of action at the moment.
         // there is only one possible action: text entry
-        processCommand();
+	else
+	    processCommand();
     }
 
     /**
@@ -133,4 +143,5 @@ public class UserInterface implements ActionListener
 
         engine.interpretCommand(input);
     }
+
 }

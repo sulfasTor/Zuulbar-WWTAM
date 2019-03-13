@@ -1,0 +1,3 @@
+Le modèle mvc est un design pattern qui permet de separer le code source
+d'une application en trois parties, une partie view qui represente l'interface graphique,
+le modèle qui contient les données et le controlleur qui contient la logique de l'applcation. Dans le cadre du jeu ce modèle separera notre interface graphique, les données et la logique du jeu. En separant ces parties on pourra modifier par exemple l'interface graphique sans modifier la logique, donc on peut ajouter des fonctionnalités sans se perdre ou casser quelque chose.
